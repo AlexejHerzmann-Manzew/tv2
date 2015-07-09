@@ -52,7 +52,7 @@ public class Coin extends Entity {
     }
     
     public void changeStats(Player p){
-         
+         p.money++;
     }
 
     @Override

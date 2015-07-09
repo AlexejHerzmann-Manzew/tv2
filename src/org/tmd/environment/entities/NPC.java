@@ -5,6 +5,7 @@
  */
 package org.tmd.environment.entities;
 
+import org.tmd.render.Animation;
 import org.tmd.render.Image;
 
 /**
@@ -13,12 +14,13 @@ import org.tmd.render.Image;
  */
 public class NPC extends Entity{
 
-    Image sprite;
+    Animation sprite;
     String dialog;
     
     public NPC(double x, double y, String sprite, String dialog) {
         super(x, y);
-        this.sprite = new Image(sprite + "1.png");
+        this.sprite = new Animation(sprite);
+        this.sprite.delay = 250;
         this.dialog = dialog;
         phantom = true;
     }
@@ -30,7 +32,7 @@ public class NPC extends Entity{
 
     @Override
     public void render() {
-        sprite.draw(x - sprite.width, y - sprite.height * 2, sprite.width * 2, sprite.height * 2);
+        sprite.get().draw(x - sprite.get().width, y - sprite.get().height * 2, sprite.get().width * 2, sprite.get().height * 2);
     }
     
 }

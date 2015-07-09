@@ -31,7 +31,7 @@ public class Entity {
     public String name = "Entity";
     public Dungeon dungeon = Declaration.dungeon;
     public Entity focus;
-    public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 75, deltahp = 30, regenhp = 0.05, dmg, armor;
+    public double x, y, size = 75, width = 128, height = 48, hp = 105, maxhp = 100, deltahp = 25, regenhp = 0.01, armor;
     protected double targetX = -1, targetY = -1;
     private Point[] way;
     private int currentWaypoint;
@@ -41,11 +41,11 @@ public class Entity {
     public double speed = 2;
     public int faction;
     public boolean phantom = false, dead;
-    public int attackDamage = 10, attackDeltaDamage = 2;
+    public int attackDamage = 10, attackDeltaDamage = 5;
     public int attackDistance = 128;
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;
-    private int attackReload = 0;
+    protected int attackReload = 0;
     public int level = 1;
 
     public String getName() {
@@ -56,7 +56,7 @@ public class Entity {
         if (attackReload == 0) {
             if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) < attackDistance) {
                 dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
-                e.hit(attackDamage, this);
+                e.hit(getDMG(), this);
                 attackReload = attackReloadTime;
             }
         }
@@ -71,7 +71,7 @@ public class Entity {
     }
 
     public double getDMG() {
-        return dmg;
+        return attackDamage + attackDeltaDamage * level;
     }
 
     public double getArmor() {
@@ -331,9 +331,9 @@ public class Entity {
         return (int) y;
     }
 
-    public void hit(double damage, Entity from) {
+    public boolean hit(double damage, Entity from) {
         if (hp <= 0) {
-            return;
+            return false;
         }
         hp -= damage;
         if (Main.RANDOM.nextBoolean()) {
@@ -347,5 +347,6 @@ public class Entity {
                 dungeon.addParticle(new BloodParticle(x, y - 35));
             }
         }
+        return hp < 0;
     }
 }

@@ -28,12 +28,30 @@ public class Raider extends Entity {
         minimapIcon = new Image("minimap/warrior.png");
         name = "raider";
         width = 96;
+        maxhp = 50;
+        deltahp = 15;
+        attackDamage = 2;
+        attackDeltaDamage = 2;
+        faction = 2;
     }
 
     @Override
     public void alive() {
-        goTo(dungeon.player.x, dungeon.player.y);
-        attack(dungeon.player);
+        double dist = Double.MAX_VALUE;
+        Entity t = null;
+        for (Entity e : dungeon.getEntities()) {
+            if (!e.dead && e.faction == 1) {
+                double d = sqrt(pow(e.x - x, 2) + pow(e.y - y, 2));
+                if (d < dist) {
+                    dist = d;
+                    t = e;
+                }
+            }
+        }
+        if (t != null) {
+            goTo(t.x, t.y);
+            attack(t);
+        }
     }
 
     @Override

@@ -16,6 +16,7 @@ public class Image {
     public final String path;
     private transient org.newdawn.slick.Image subimage;
     public int width, height;
+    public float r = 1, g = 1, b = 1, a = 1;
 
     public Image(String path) {
         this.path = path;
@@ -49,6 +50,7 @@ public class Image {
             this.width = subimage.getWidth();
             this.height = subimage.getHeight();
         }
+        subimage.setImageColor(r, g, b, a);
         subimage.draw(0, 0);
     }
 
@@ -58,6 +60,7 @@ public class Image {
             this.width = subimage.getWidth();
             this.height = subimage.getHeight();
         }
+        subimage.setImageColor(r, g, b, a);
         subimage.draw((float) x, (float) y);
     }
 
@@ -67,6 +70,7 @@ public class Image {
             this.width = subimage.getWidth();
             this.height = subimage.getHeight();
         }
+        subimage.setImageColor(r, g, b, a);
         subimage.draw((float) x, (float) y, (float) width, (float) height);
     }
 
@@ -76,6 +80,7 @@ public class Image {
             this.width = subimage.getWidth();
             this.height = subimage.getHeight();
         }
+        subimage.setImageColor(r, g, b, a);
         draw(0, 0, angle);
     }
 
@@ -85,6 +90,7 @@ public class Image {
             this.width = subimage.getWidth();
             this.height = subimage.getHeight();
         }
+        subimage.setImageColor(r, g, b, a);
         draw(x, y, width, height, angle);
     }
 
@@ -94,6 +100,7 @@ public class Image {
             this.width = subimage.getWidth();
             this.height = subimage.getHeight();
         }
+        subimage.setImageColor(r, g, b, a);
         GL11.glTranslated(x, y, 0);
         GL11.glRotated(angle / Math.PI * 180.0, 0, 0, 1);
         subimage.draw((float) -width / 2f, (float) -height / 2f, (float) width, (float) height);
@@ -107,6 +114,7 @@ public class Image {
             this.width = subimage.getWidth();
             this.height = subimage.getHeight();
         }
+        subimage.setImageColor(r, g, b, a);
         subimage.bind();
     }
 

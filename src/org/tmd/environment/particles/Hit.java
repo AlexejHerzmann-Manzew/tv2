@@ -28,8 +28,8 @@ public class Hit extends Particle {
     @Override
     public void renderEntity() {
         int i = (90 - timer) / 15;
-        if (i > 6) {
-            i = 6;
+        if (i > 5) {
+            i = 5;
         }
         images[i].draw(x, y, images[i].width * 2 * (mirror?1:-1), images[i].height * 2, 0);
     }

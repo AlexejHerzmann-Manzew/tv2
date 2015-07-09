@@ -131,9 +131,12 @@ public class Dungeon extends Scene {
 
                 @Override
                 public void render() {
+                    if (underMouse != player) {
+                        return;
+                    }
                     super.render();
-                    double d = 1;
-                    double m = 10;
+                    double d = player.souls;
+                    double m = player.neededSouls;
                     String of = (int) d + "/" + (int) m;
                     Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
                     Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
@@ -228,12 +231,12 @@ public class Dungeon extends Scene {
             }
         }
         for (Entity e : getEntities()) {
-            if (e instanceof Raider && !e.dead) {
+            if (e instanceof Raider) {
                 return;
             }
         }
         if (!wavetimer) {
-            longtim = 5;
+            longtim = 10;
             wavetimer = true;
         }
     }
@@ -268,7 +271,9 @@ public class Dungeon extends Scene {
                 longtim--;
             } else {
                 wave++;
-                entities.add(new Raider(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                for (int i = 0; i < 3; i++) {
+                    entities.add(new Raider(raidersRespawnPoint.x, raidersRespawnPoint.y, wave));
+                }
                 wavetimer = false;
             }
         }
