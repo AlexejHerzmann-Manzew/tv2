@@ -213,31 +213,35 @@ public class Dungeon extends Scene {
 
     @Override
     public void tick() {
-        for (Entity e : getEntities()) {
-            try {
-                e.tick();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        for (int i = 0; i < particles.length; i++) {
-            if (particles[i] != null) {
-                particles[i].tick();
-            }
-            if (particles[i] != null) {
-                if (particles[i].timer <= 0) {
-                    particles[i] = null;
+        try {
+            for (Entity e : getEntities()) {
+                try {
+                    e.tick();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
-        }
-        for (Entity e : getEntities()) {
-            if (e instanceof Raider) {
-                return;
+            for (int i = 0; i < particles.length; i++) {
+                if (particles[i] != null) {
+                    particles[i].tick();
+                }
+                if (particles[i] != null) {
+                    if (particles[i].timer <= 0) {
+                        particles[i] = null;
+                    }
+                }
             }
-        }
-        if (!wavetimer) {
-            longtim = 10;
-            wavetimer = true;
+            for (Entity e : getEntities()) {
+                if (e instanceof Raider) {
+                    return;
+                }
+            }
+            if (!wavetimer) {
+                longtim = 10;
+                wavetimer = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

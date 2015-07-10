@@ -37,7 +37,7 @@ public class MiniMap extends Element {
             }
         }
         for (Entity e : dungeon.getEntities()){
-            if(e.minimapIcon != null){
+            if(e != null && e.minimapIcon != null){
                 e.minimapIcon.draw(dx + (e.x * dw) - e.minimapIcon.width / 2, dy + (e.y * dh) - e.minimapIcon.height / 2);
             }
         }

@@ -19,7 +19,10 @@ import org.tmd.render.gui.Mouse;
  */
 public class Player extends Entity {
 
+    public Image deadSprite = new Image("creatures/player/dead.png");
+
     public int souls, neededSouls = 12, money;
+
     public Player(double x, double y) {
         super(x, y);
         minimapIcon = new Image("minimap/player.png");
@@ -27,6 +30,7 @@ public class Player extends Entity {
         attackType = "hit_big_clutches";
         faction = 1;
         regenhp = 0.05;
+        headType = 1;
     }
 
     @Override
@@ -35,6 +39,21 @@ public class Player extends Entity {
             souls -= neededSouls;
             level++;
             dungeon.addParticle(new LevelUp(this));
+            for (Entity e : dungeon.entities) {
+                if (e instanceof Mob) {
+                    e.level++;
+                    dungeon.addParticle(new LevelUp(e));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void render() {
+        if (dead) {
+            deadSprite.draw(x, y - deadSprite.height, deadSprite.width * 2, deadSprite.height * 2, 0);
+        } else {
+            super.render();
         }
     }
 

@@ -43,6 +43,7 @@ public class Entity {
     public boolean phantom = false, dead;
     public int attackDamage = 10, attackDeltaDamage = 5;
     public int attackDistance = 128;
+    public int headType = -1;
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;
     protected int attackReload = 0;
@@ -340,8 +341,8 @@ public class Entity {
             dungeon.addParticle(new BloodParticle(x, y - 35));
         }
         if (hp < 0) {
-            if (Main.RANDOM.nextBoolean()) {
-                dungeon.addParticle(new HeadParticle(x, y - 75));
+            if (headType >= 0 && Main.RANDOM.nextBoolean()) {
+                dungeon.addParticle(new HeadParticle(headType, x, y - 75));
             }
             for (int i = 0; i < Main.RANDOM.nextInt(4); i++) {
                 dungeon.addParticle(new BloodParticle(x, y - 35));

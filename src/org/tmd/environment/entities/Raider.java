@@ -33,6 +33,7 @@ public class Raider extends Entity {
         attackDamage = 2;
         attackDeltaDamage = 2;
         faction = 2;
+        headType = 0;
     }
 
     @Override

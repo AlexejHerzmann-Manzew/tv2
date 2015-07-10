@@ -40,6 +40,7 @@ public class Mob extends Entity {
         attackDamage = 3;
         attackDeltaDamage = 2;
         faction = 1;
+        headType = 2;
     }
 
     @Override
