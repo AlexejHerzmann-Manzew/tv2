@@ -16,6 +16,7 @@ public class Expa extends Coin {
 
     public Expa(double x, double y) {
         super(x, y);
+        name = "Expa";
         coin = new Animation("effects/exp");
     }
 

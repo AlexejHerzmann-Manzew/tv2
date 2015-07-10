@@ -31,10 +31,12 @@ public class Player extends Entity {
         faction = 1;
         regenhp = 0.05;
         headType = 1;
+        level = 1;
     }
 
     @Override
     public void alive() {
+        attack(focus);
         while (souls >= neededSouls) {
             souls -= neededSouls;
             level++;
@@ -63,12 +65,6 @@ public class Player extends Entity {
             goTo(Mouse.x - dungeon.cam.x, Mouse.y - dungeon.cam.y);
             //dungeon.pointer.set(Mouse.x - dungeon.cam.x,Mouse.y - dungeon.cam.y);
         }
-    }
-
-    @Override
-    public boolean hit(double damage, Entity from) {
-        attack(from);
-        return super.hit(damage, from); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

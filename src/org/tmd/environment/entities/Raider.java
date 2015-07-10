@@ -34,6 +34,8 @@ public class Raider extends Entity {
         attackDeltaDamage = 2;
         faction = 2;
         headType = 0;
+        clickable = true;
+        level = 1;
     }
 
     @Override
@@ -92,4 +94,8 @@ public class Raider extends Entity {
         }
     }
 
+    @Override
+    public void click() {
+        dungeon.player.focus = this;
+    }
 }

@@ -23,8 +23,8 @@ public class Coin extends Entity {
         super(x, y);
         double a = Main.RANDOM.nextDouble() * 6.28;
         minimapIcon = null;
-        name = "coin";
-        maxhp = Double.POSITIVE_INFINITY;
+        name = "Coin";
+        maxhp = Double.MAX_VALUE;
         width = 32;
         vx = cos(a) * 3;
         vy = sin(a) * 3;

@@ -24,6 +24,8 @@ public class Gate extends Entity{
         width = 40;
         height = 300;
         minimapIcon = null;
+        maxhp = Double.MAX_VALUE;
+        name = "gate";
     }
 
     @Override

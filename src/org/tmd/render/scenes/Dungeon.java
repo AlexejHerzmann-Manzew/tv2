@@ -96,9 +96,11 @@ public class Dungeon extends Scene {
                 @Override
                 public void render() {
                     string = underMouse.getName();
-                    String of = underMouse.level + " " + GameLocale.get("level");
-                    Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
-                    Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
+                    if (underMouse.level > 0) {
+                        String of = underMouse.level + " " + GameLocale.get("level");
+                        Main.defaultFont.drawStringRight(of, 240, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 240, (int) getY() - 2, color);
+                    }
                     super.render();
                 }
 
@@ -108,22 +110,28 @@ public class Dungeon extends Scene {
                 @Override
                 public void render() {
                     super.render();
-                    double d = underMouse.getHP();
-                    double m = underMouse.getMaxHP();
-                    String of = (int) d + "/" + (int) m;
-                    Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
-                    Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
-                    Main.g.setColor(Color.green);
-                    d = d / m * 200;
-                    if (d < 0) {
-                        d = 0;
+                    if (underMouse.maxhp != Double.MAX_VALUE) {
+                        double d = underMouse.getHP();
+                        double m = underMouse.getMaxHP();
+                        String of = (int) d + "/" + (int) m;
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY(), Color.black);
+                        Main.defaultFont.drawStringRight(of, 225, (int) getY() - 2, color);
+                        Main.g.setColor(Color.green);
+                        d = d / m * 200;
+                        if (d < 0) {
+                            d = 0;
+                        }
+                        if (d > 200) {
+                            d = 200;
+                        }
+                        Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
+                        end.draw((int) d + 18, (int) getY() + 36);
+                        Frame.glassFrame.render(16, getY() + 32, 224, 32);
+                    } else {
+                        String of = GameLocale.get("invulnerable");
+                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 26, Color.black);
+                        Main.defaultFont.drawStringAtCenter(of, 128, (int) getY() + 28, color);
                     }
-                    if (d > 200) {
-                        d = 200;
-                    }
-                    Main.g.fillRect(28, (int) getY() + 36, (int) d, 24);
-                    end.draw((int) d + 18, (int) getY() + 36);
-                    Frame.glassFrame.render(16, getY() + 32, 224, 32);
                 }
 
             };
@@ -322,6 +330,9 @@ public class Dungeon extends Scene {
                 if (particles[i] != null) {
                     particles[i].renderEntity();
                 }
+            }
+            if (underMouse != player && underMouse.clickable && Mouse.left) {
+                underMouse.click();
             }
             terrain.renderTops(floor);
             shadow.draw(player.x - Display.getWidth() - 50, player.y - Display.getHeight() - 50, Display.getWidth() * 2, Display.getHeight() * 2);

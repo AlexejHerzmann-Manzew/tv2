@@ -47,14 +47,19 @@ public class Entity {
     public String attackType = "hit_sword";
     public int attackReloadTime = 100;
     protected int attackReload = 0;
-    public int level = 1;
+    public int level = 0;
+    public boolean clickable;
 
     public String getName() {
         return GameLocale.get(name);
     }
+    
+    public void click(){
+        
+    }
 
     public void attack(Entity e) {
-        if (attackReload == 0) {
+        if (attackReload == 0 && e != null) {
             if (sqrt(pow(e.x - x, 2) + pow(e.y - y, 2)) < attackDistance) {
                 dungeon.addParticle(new Hit(attackType, e.x, e.y - 35));
                 e.hit(getDMG(), this);

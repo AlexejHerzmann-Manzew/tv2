@@ -17,11 +17,13 @@ public class NPC extends Entity{
     Animation sprite;
     String dialog;
     
-    public NPC(double x, double y, String sprite, String dialog) {
+    public NPC(double x, double y, String sprite, String name, String dialog) {
         super(x, y);
         this.sprite = new Animation(sprite);
+        this.name = name;
         this.sprite.delay = 250;
         this.dialog = dialog;
+        maxhp = Double.MAX_VALUE;
         phantom = true;
     }
 
